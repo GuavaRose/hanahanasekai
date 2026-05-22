@@ -3,49 +3,49 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>天國小勇士的抉擇冒險</title>
+    <title>天國小勇士的抉擇冒險編輯器</title>
     <style>
-        body { font-family: "Microsoft JhengHei", Arial, sans-serif; background-color: #f0f2f5; margin: 0; padding: 20px; display: flex; gap: 20px; height: 95vh; }
-        .container { background: white; padding: 30px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); box-sizing: border-box; }
-        
-        /* 遊戲投影區樣式（預設全螢幕寬度） */
-        #game-area { flex: 1; background-color: #e8f0fe; border-left: 8px solid #1a73e8; display: flex; flex-direction: column; transition: all 0.3s ease; position: relative; }
-        h2 { color: #1a73e8; border-bottom: 2px solid #1a73e8; padding-bottom: 10px; margin-top: 0; font-size: 1.8rem; }
-        .story-text { font-size: 1.5rem; line-height: 1.8; margin-bottom: 30px; white-space: pre-wrap; color: #202124; flex-grow: 1; }
-        .option-btn { display: block; width: 100%; text-align: left; padding: 16px 20px; margin: 12px 0; background-color: white; border: 2px solid #dadce0; border-radius: 8px; cursor: pointer; font-size: 1.2rem; font-weight: bold; transition: 0.2s; color: #3c4043; }
-        .option-btn:hover { background-color: #f1f3f4; border-color: #1a73e8; color: #1a73e8; transform: translateY(-2px); box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
-        
-        /* 控制後台開關的按鈕 */
-        .toggle-edit-btn { position: absolute; top: 25px; right: 30px; background-color: #5f6368; color: white; border: none; padding: 8px 15px; border-radius: 20px; cursor: pointer; font-size: 0.9rem; opacity: 0.6; transition: 0.3s; }
-        .toggle-edit-btn:hover { opacity: 1; background-color: #1a73e8; }
-
-        /* 編輯區樣式（預設隱藏） */
-        #edit-area { width: 400px; background-color: #f8f9fa; display: none; flex-direction: column; height: 100%; }
-        textarea { width: 100%; flex-grow: 1; font-family: monospace; font-size: 13px; padding: 10px; box-sizing: border-box; border: 1px solid #ccc; border-radius: 4px; resize: none; }
-        .btn { background-color: #1a73e8; color: white; border: none; padding: 12px 20px; border-radius: 6px; cursor: pointer; font-size: 1rem; margin-top: 10px; font-weight: bold; }
+        body { font-family: "Microsoft JhengHei", Arial, sans-serif; background-color: #f0f2f5; margin: 0; padding: 20px; display: flex; gap: 20px; }
+        .container { flex: 1; background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+        h2 { color: #1a73e8; border-bottom: 2px solid #1a73e8; padding-bottom: 5px; }
+        /* 遊戲區樣式 */
+        #game-area { background-color: #e8f0fe; border-left: 5px solid #1a73e8; }
+        .story-text { font-size: 1.2rem; line-height: 1.6; margin-bottom: 20px; white-space: pre-wrap; }
+        .option-btn { display: block; width: 100%; text-align: left; padding: 12px; margin: 10px 0; background-color: white; border: 1px solid #dadce0; border-radius: 4px; cursor: pointer; font-size: 1rem; transition: 0.2s; }
+        .option-btn:hover { background-color: #f1f3f4; border-color: #1a73e8; }
+        /* 編輯區樣式 */
+        #edit-area { background-color: #f8f9fa; max-height: 90vh; overflow-y: auto; }
+        textarea { width: 100%; height: 300px; font-family: monospace; font-size: 14px; padding: 10px; box-sizing: border-box; border: 1px solid #ccc; border-radius: 4px; }
+        .btn { background-color: #1a73e8; color: white; border: none; padding: 10px 20px; border-radius: 4px; cursor: pointer; font-size: 1rem; margin-top: 10px; }
         .btn:hover { background-color: #1557b0; }
-        .hint { color: #5f6368; font-size: 0.85rem; margin-bottom: 10px; line-height: 1.4; }
+        .btn-danger { background-color: #dc3545; margin-left: 10px; }
+        .btn-danger:hover { background-color: #c82333; }
+        .hint { color: #666; font-size: 0.9rem; margin-bottom: 10px; line-height: 1.5; }
     </style>
 </head>
 <body>
 
     <div id="game-area" class="container">
-        <button class="toggle-edit-btn" onclick="toggleEditor()">🛠️ 開啟後台編輯</button>
-        <h2>後埔教會 ｜ 天國小勇士的一天冒險 🏆</h2>
-        <div id="current-id" style="font-weight: bold; color: #70757a; margin-bottom: 10px; font-size: 1rem;">當前進度：關卡 1-1</div>
-        <div id="story" class="story-text">冒險準備開始...</div>
+        <h2>🎮 天國小勇士的冒險測試</h2>
+        <div id="current-id" style="font-weight: bold; color: #5f6368;">當前情境：1-1</div>
+        <div id="story" class="story-text">載入中...</div>
         <div id="options"></div>
     </div>
 
     <div id="edit-area" class="container">
-        <h2>🛠️ 劇情資料編輯後台</h2>
-        <p class="hint">可以自由用中文修改關卡文字（"text"）與選項（"options"）。格式必須維持正確的 JSON。改完點擊下方按鈕更新。</p>
+        <h2>🛠️ 劇情資料編輯器</h2>
+        <p class="hint">您可以自由修改下方的 JSON 結構。修改完後點擊「更新劇情並暫存」，即使重新整理網頁，修改的內容也會保留在您的瀏覽器中。</p>
         <textarea id="json-input"></textarea>
-        <button class="btn" onclick="updateStoryData()">🔄 更新劇本並重頭測試</button>
+        <br>
+        <button class="btn" onclick="updateStoryData()">🔄 更新劇情並暫存</button>
+        <button class="btn btn-danger" onclick="resetToDefault()">🗑️ 清除暫存並恢復預設</button>
     </div>
 
 <script>
-// 初始劇情資料
+// 儲存在瀏覽器 LocalStorage 的 Key 名稱
+const STORAGE_KEY = "heavenlyWarriorStoryData";
+
+// 初始預設劇情資料
 const defaultData = {
     "1-1": {
         "text": "放學了，你經過便利商店，看到大家都圍在門口買最新、最熱門的遊戲盲盒。你也很想買，但你答應媽媽放學要馬上回家。這時你決定：",
@@ -56,21 +56,21 @@ const defaultData = {
         ]
     },
     "1-1-1": {
-        "text": "【灰色破口支線：客廳裡的謊言】\n因為你逛了 10 分鐘，回到家比平常晚了。媽媽一臉懷疑地問你：「今天怎麼比較晚放學？」這時你決定：",
+        "text": "因為你逛了 10 分鐘，回到家比平常晚了。媽媽一臉懷疑地問你：「今天怎麼比較晚放學？」這時你決定：",
         "options": [
             { "text": "(A) 誠實認錯，承認自己去逛商店。", "nextField": "1-2" },
-            { "text": "(C) 撒謊說：「因為老師今天放學留全班比較久。」", "nextField": "1-1-1-1" }
+            { "text": "(B) 撒謊說：「因為老師今天放學留全班比較久。」", "nextField": "1-1-1-1" }
         ]
     },
     "1-1-1-1": {
-        "text": "【隱患加深：電話鈴聲響起】\n晚上吃飽飯，媽媽突然說要打電話給隔壁的狐狸媽媽確認明天的功課。你心驚肉跳，因為一打電話，你放學撒謊的事就會被拆穿！為了不被發現，你決定：",
+        "text": "晚上吃飽飯，媽媽突然說要打電話給隔壁的小明媽媽，確認明天的功課。你嚇了一跳，因為打電話時一定會提到老師今天留下全班同學的事，你放學撒謊的事就會被拆穿！為了不被發現，你決定：",
         "options": [
-            { "text": "(A) 趕快在媽媽打電話前跪下招供認錯。", "nextField": "LOSE-撒謊" },
+            { "text": "(A) 趕快在媽媽打電話前認錯。", "nextField": "LOSE-撒謊" },
             { "text": "(B) 偷偷把家裡的電話線拔掉，或是把媽媽的手機藏起來。", "nextField": "LOSE-藏手機" }
         ]
     },
     "1-2": {
-        "text": "【順利推進】\n隔天去上學，全班收集最多盲盒公仔的狐狸同學帶了一隻超稀有的公仔來。下課時大家都去操場了，你發現那隻稀有公仔掉在地上，四下無人。這時你決定：",
+        "text": "隔天去上學，全班收集最多盲盒公仔的狐狸同學帶了一隻超稀有的公仔來。下課時大家都去操場了，你發現那隻稀有公仔掉在地上，四下無人。這時你決定：",
         "options": [
             { "text": "(A) 把公仔撿起來放到同學桌上，或交給老師。", "nextField": "1-3" },
             { "text": "(B) 偷偷撿起來放進自己的書包佔為己有。", "nextField": "LOSE-2" },
@@ -78,28 +78,28 @@ const defaultData = {
         ]
     },
     "1-2-1": {
-        "text": "【灰色破口支線：哭泣的失主】\n下午上課，狐狸同學發現公仔不見了，在座位上傷心地大哭。你看著他哭，心裡很糾結，這時你決定：",
+        "text": "下午上課，狐狸同學發現公仔不見了，在座位上傷心地大哭。你看著他哭，心裡很糾結，這時你決定：",
         "options": [
             { "text": "(A) 拿出公仔說：「對不起，我剛剛撿到忘記還你。」", "nextField": "1-3" },
-            { "text": "(C) 繼續裝作不知道，心想等放學帶回家就沒事了。", "nextField": "1-2-1-1" }
+            { "text": "(B) 繼續裝作不知道，心想等放學帶回家就沒事了。", "nextField": "1-2-1-1" }
         ]
     },
     "1-2-1-1": {
-        "text": "【隱患加深：書包裡的定時炸彈】\n放學時，老師突然說：「狐狸同學的玩具不見了，大家排隊讓老師檢查一下書包再回家。」此時公仔就在你口袋裡！你決定：",
+        "text": "放學時，老師突然說：「狐狸同學的玩具不見了，大家排隊，讓老師檢查一下書包再回家。」此時那隻公仔就在你的口袋裡！你決定：",
         "options": [
             { "text": "(A) 主動向老師自首。", "nextField": "LOSE-貪心自首" },
             { "text": "(B) 趁大家不注意，偷偷把公仔塞進旁邊無辜的小豬同學的書包裡。", "nextField": "LOSE-栽贓" }
         ]
     },
     "1-3": {
-        "text": "【順利推進】\n你成功把撿到的公仔還給了同學，同學非常感激你，送了你一個小貼紙當謝禮。回到家，你決定：",
+        "text": "你成功把撿到的公仔還給了同學，同學非常感激你，還送了你一個小貼紙當作謝禮。回到家，你把這件事告訴爸爸媽媽，這時你決定：",
         "options": [
-            { "text": "(A) 感謝主耶穌保守我的心，讓我沒有貪心，並把謝禮收好。", "nextField": "2-1" },
-            { "text": "(B) 跟爸媽大吵大鬧，要求買更貴的盲盒當作誠實的獎勵。", "nextField": "LOSE-驕傲" }
+            { "text": "(A) 感謝主耶穌保守我的心，讓我沒有貪心，並把謝禮小貼紙好好收起來。", "nextField": "2-1" },
+            { "text": "(B) 跟爸媽討價還價：「你看我都這麼誠實，可不可以買更貴的盲盒獎勵我？」", "nextField": "LOSE-驕傲" }
         ]
     },
     "2-1": {
-        "text": "【第二階段：校園人際挑戰】\n下課時間，你和大家在走廊玩遊戲。這時，狐狸同學故意當著大家的面前大聲嘲笑你是「矮冬瓜、太笨了」，旁邊的同學也跟著哈哈大笑。你心裡非常生氣，你決定：",
+        "text": "下課時間，你和大家在走廊玩遊戲。這時，狐狸同學故意當著大家的面前大聲嘲笑你是「矮冬瓜、太笨了」，旁邊的同學也跟著哈哈大笑。你心裡非常生氣，你決定：",
         "options": [
             { "text": "(A) 先深呼吸 10 秒保持安靜，不跟對方大聲吵，並用柔和言語回應。", "nextField": "2-2" },
             { "text": "(B) 動手動腳打回去，大聲叫他的醜八怪綽號。", "nextField": "LOSE-打架" },
@@ -107,21 +107,21 @@ const defaultData = {
         ]
     },
     "2-1-1": {
-        "text": "【灰色破口支線：隱形炸彈的累積】\n你把委屈悶在心裡。下午分組做勞作時，狐狸同學又故意把你的彩色筆撞翻到地上，還嘻皮笑臉地不道歉。此時你快爆炸了，你決定：",
+        "text": "你把委屈悶在心裡。下午分組做勞作時，狐狸同學又故意把你的彩色筆撞翻到地上，還嘻皮笑臉地不道歉。此時你快爆炸了，你決定：",
         "options": [
             { "text": "(A) 舉手請老師協助處理。", "nextField": "2-2" },
-            { "text": "(C) 繼續忍耐，但心裡發誓：「等一下放學我一要讓你好看！」", "nextField": "2-1-1-1" }
+            { "text": "(B) 繼續忍耐，但心裡發誓：「等一下放學我一定要讓你好看！」", "nextField": "2-1-1-1" }
         ]
     },
     "2-1-1-1": {
-        "text": "【隱患大引爆：放學後的復仇】\n放學排隊時，你看到狐狸同學排在你的前面，他正轉頭跟別人說話。你決定實施你的復仇計畫：",
+        "text": "放學排隊時，你看到狐狸同學排在你的前面，他正轉頭跟別人說話。你決定實施你的復仇計畫，這時你決定：",
         "options": [
-            { "text": "(A) 突然醒悟，向神禱告求神拿走憤怒。", "nextField": "LOSE-內耗" },
-            { "text": "(B) 狠狠地從背後用力推他一把，或是用腳把他絆倒。", "nextField": "LOSE-推人霸凌" }
+            { "text": "(A) 突然醒悟，向神禱告求神拿走憤怒。", "nextField": "2-2" },
+            { "text": "(B) 狠狠地從背後用力推他一把，或是用腳把他絆倒，讓他摔個狗吃屎。", "nextField": "LOSE-推人霸凌" }
         ]
     },
     "2-2": {
-        "text": "【順利推進】\n在剛剛的言語嘲笑中，你用溫柔的態度回應了，但狐狸同學覺得不好玩，排隊上廁所時，他竟然故意用力撞你，想把你推向牆壁。這時你決定：",
+        "text": "在剛剛的言語嘲笑中，你用溫柔的態度回應了，但狐狸同學覺得不好玩，排隊上廁所時，他竟然故意用力撞你，想把你推向牆壁。這時你決定：",
         "options": [
             { "text": "(A) 聰明地躲開麻煩，不跟他起衝突，並立刻向附近的老師尋求幫助。", "nextField": "2-3" },
             { "text": "(B) 忍不住了！轉過身也用力撞回去。", "nextField": "LOSE-撞人" },
@@ -129,88 +129,118 @@ const defaultData = {
         ]
     },
     "2-2-1": {
-        "text": "【灰色破口支線：暗地裡的惡作劇】\n趁著大家去升旗教室沒人，你偷偷溜回座位打算暗中報仇。這時你決定：",
+        "text": "趁著大家去升旗教室沒人，你偷偷溜回座位打算暗中報仇。這時你決定：",
         "options": [
             { "text": "(A) 突然想到聖經說「不要以惡報惡」，趕快去操場升旗。", "nextField": "2-3" },
-            { "text": "(C) 把狐狸同學的作業本偷偷拿走，丟進垃圾桶裡。", "nextField": "2-2-1-1" }
+            { "text": "(B) 把狐狸同學的作業本偷偷拿走，丟進垃圾桶裡。", "nextField": "2-2-1-1" }
         ]
     },
     "2-2-1-1": {
-        "text": "【隱患大引爆：被目擊的恐慌】\n就在你剛把作業本丟進垃圾桶時，小豬同學突然走進教室拿水壺，正好看到了這一幕！小豬驚訝地看著你。為了不讓小豬去告密，你決定：",
+        "text": "就在你剛把作業本丟進垃圾桶時，小豬同學突然走進教室拿水壺，正好看到了這一幕！小豬驚訝地看著你。為了不讓小豬去告密，你決定：",
         "options": [
-            { "text": "(A) 大哭向小豬認錯，把作業本撿起來。", "nextField": "LOSE-作惡被抓" },
-            { "text": "(B) 威脅小豬說：「如果你敢告訴老師，明天換你的作業本不見！」", "nextField": "LOSE-恐嚇霸凌" }
+            { "text": "(A) 威脅小豬說：「如果你敢告訴老師，明天換你的作業本不見！大家也都不會跟你玩！」", "nextField": "LOSE-恐嚇霸凌" },
+            { "text": "(B) 大哭向小豬認錯，把作業本撿起來。", "nextField": "LOSE-作惡被抓" }
         ]
     },
     "2-3": {
-        "text": "【終極考驗：主耶穌的愛與代禱】\n你成功運用智慧化解了衝突。放學前，老師嚴厲地處罰了狐狸同學。全班都在嘲笑狐狸活該。這時，你看到狐狸同學一個人躲在座位上哭，面臨最後的信仰抉擇：",
+        "text": "你成功運用智慧化解了衝突。放學前，老師嚴厲地處罰了狐狸同學。全班都在嘲笑狐狸活該。這時，你看到狐狸同學一個人躲在座位上哭，面臨最後的信仰抉擇：",
         "options": [
             { "text": "(A) 實踐信仰的愛！走過去安慰他，甚至在心裡默默為他禱告。", "nextField": "WIN" },
             { "text": "(B) 跟著大家一起大笑指著他：「哈哈！活該！這就是報應啦！」", "nextField": "LOSE-沒愛心" }
         ]
     },
     "WIN": {
-        "text": "🏆【完美通關：真正的天國小勇士！】\n恭喜你成功走完了最完整的 6 個挑戰情境！\n你拒絕了誘惑、保護了良心、用溫柔回應嘲笑、用愛心為傷害你的人代禱！聖經說：『只要你行公義，好憐憫，存謙卑的心，與你的神同行。』你成功戰勝了魔鬼的陷阱！",
+        "text": "🏆 恭喜你成功走完了最完整的 6 個挑戰情境！\n你拒絕了誘惑、保護了良心、用溫柔回應嘲笑、用愛心為傷害你的人代禱！聖經說：『只要你行公義，好憐憫，存謙卑的心，與你的神同行。』你成功戰勝了魔鬼的陷阱！",
         "options": [{ "text": "再玩一次", "nextField": "1-1" }]
     },
     "LOSE-1": {
-        "text": "❌【冒險失敗】你逛得太開心忘記時間。回到家天都黑了，媽媽在門口焦急地哭，爸爸非常生氣地沒收你所有的玩具。（提早出局）",
+        "text": "❌ 你逛得太開心忘記時間。回到家天都黑了，媽媽在門口焦急地哭，爸爸非常生氣地沒收你所有的玩具。（提早出局）",
         "options": [{ "text": "回到上一關改過自新", "nextField": "1-1" }]
     },
+    "LOSE-撒謊": {
+        "text": "❌ 爸媽對你非常失望，因為你不僅沒節制還撒謊，你失去了父母的信任。",
+        "options": [{ "text": "重頭來過", "nextField": "1-1" }]
+    },
     "LOSE-藏手機": {
-        "text": "❌【被迫做出違背信仰的惡事】\n你為了掩蓋一個小謊言，竟然去做了偷藏父母手機的惡事。結果被爸爸當場抓到，事情鬧得更大。你因為一步錯步步錯，最後背離了真理。（提早出局）",
+        "text": "❌ 你為了掩蓋一個小謊言，被迫去做了偷藏父母手機的惡事。結果被爸爸當場抓到，事情鬧得更大，你被關在房間反省，完全體會不到生命平安。（提早出局）",
+        "options": [{ "text": "重頭來過", "nextField": "1-1" }]
+    },
+    "LOSE-2": {
+        "text": "❌ 搜書包時被抓到，全班指責你是小偷，你觸犯了不可偷盜的誡命。",
+        "options": [{ "text": "重頭來過", "nextField": "1-1" }]
+    },
+    "LOSE-貪心自首": {
+        "text": "❌ 老師處罰你，並且通知爸媽，爸媽很傷心，因為偷別人的東西違反了神的誡命。",
         "options": [{ "text": "重頭來過", "nextField": "1-1" }]
     },
     "LOSE-栽贓": {
-        "text": "❌【被迫做出違背信仰的惡事】\n為了隱藏自己的貪心，你被迫做出「栽贓陷害無辜同學」這種可怕的惡事。結果被走廊的監視器看到，徹底背離了神的教導，你失去了無虧的良心。（提早出局）",
+        "text": "❌ 為了隱藏自己的貪心，你被迫做出「栽贓陷害無辜同學」這種可怕的惡事。結果被走廊的監視器或同學看到，你成了全校皆知的壞孩子，徹底背離了神的教導。（提早出局）",
+        "options": [{ "text": "重頭來過", "nextField": "1-1" }]
+    },
+    "LOSE-驕傲": {
+        "text": "❌ 因為貪心沒有節制，本來的善行變成了索取獎勵的工具，爸媽覺得你不可理喻，處罰你不能買任何玩具。",
+        "options": [{ "text": "重頭來過", "nextField": "1-1" }]
+    },
+    "LOSE-打架": {
+        "text": "❌ 動手動腳都是輸家！兩個人在走廊扭打受傷，雙雙被叫去處罰站。",
         "options": [{ "text": "重頭來過", "nextField": "1-1" }]
     },
     "LOSE-推人霸凌": {
-        "text": "❌【被迫做出違背信仰的惡事】\n你因為一味的隱忍、沒有交託給神，最後在憤怒中爆發，成為了「動手動腳的欺負者」。狐狸同學摔倒撞到頭大哭，你被帶到校長室面臨嚴厲處罰。（提早出局）",
+        "text": "❌ 你因為一味的隱忍、沒有交託給神，最後在憤怒中爆發，成為了「動手動腳的欺負者」。狐狸同學摔倒撞到頭大哭，你被帶到校長室，面臨嚴厲的處罰，也違背了彼此相愛的教導。（提早出局）",
+        "options": [{ "text": "重頭來過", "nextField": "1-1" }]
+    },
+    "LOSE-撞人": {
+        "text": "❌ 動手動腳都是輸家！兩人在廁所推擠衣服全身弄髒，受到學校處罰。",
         "options": [{ "text": "重頭來過", "nextField": "1-1" }]
     },
     "LOSE-恐嚇霸凌": {
-        "text": "❌【被迫做出違背信仰的惡事】\n你原本是被欺負的人，卻因為選擇了暗中報仇，導致最後被迫去「恐嚇、霸凌另一個無辜的小豬同學」。你徹底背離了信仰的價值，變成了惡霸。（提早出局）",
+        "text": "❌ 你原本是被欺負的人，卻因為選擇了「暗中報仇」的灰色道路，導致最後被迫去「恐嚇、霸凌另一個無辜的同學」。你徹底背離了信仰的價值，成為了自己最討厭的那種霸凌者。（提早出局）",
         "options": [{ "text": "重頭來過", "nextField": "1-1" }]
     },
-    "LOSE-撒謊": { "text": "❌【冒險失敗】謊言當場被拆穿。爸媽對你非常失望，你失去了父母的信任。", "options": [{ "text": "重頭來過", "nextField": "1-1" }] },
-    "LOSE-2": { "text": "❌【冒險失敗】搜書包時被抓到，全班指責你是小偷，你觸犯了不可偷盜的誡命。", "options": [{ "text": "重頭來過", "nextField": "1-1" }] },
-    "LOSE-貪心自首": { "text": "❌【冒險失敗】你雖然自首，但你因為心存僥倖，整天提心吊膽，失去了生命平安。", "options": [{ "text": "重頭來過", "nextField": "1-1" }] },
-    "LOSE-驕傲": { "text": "❌【冒險失敗】你的善行變成了索取獎勵的驕傲工具，爸媽處罰你不能買任何玩具。", "options": [{ "text": "重頭來過", "nextField": "1-1" }] },
-    "LOSE-打架": { "text": "❌【冒險失敗】動手動腳都是輸家！兩個人在走廊扭打受傷，雙雙被叫去處罰站。", "options": [{ "text": "重頭來過", "nextField": "1-1" }] },
-    "LOSE-內耗": { "text": "❌【冒險失敗】你整天活在恨惡同學的痛苦心態中，完全失去了基督徒的喜樂。", "options": [{ "text": "重頭來過", "nextField": "1-1" }] },
-    "LOSE-撞人": { "text": "❌【冒險失敗】動手動腳都是輸家！兩人在廁所推擠衣服全身弄髒，受到學校處罰。", "options": [{ "text": "重頭來過", "nextField": "1-1" }] },
-    "LOSE-作惡被抓": { "text": "❌【冒險失敗】不誠實與報復心已經讓同學對你留下壞印象，你失去了和睦關係。", "options": [{ "text": "重頭來過", "nextField": "1-1" }] },
-    "LOSE-沒愛心": { "text": "❌【最後關頭失敗】你失去了同理心，跟著嘲笑同學，沒能活出基督徒彼此相愛的生命。", "options": [{ "text": "重頭來過", "nextField": "1-1" }] }
+    "LOSE-作惡被抓": {
+        "text": "❌ 雖然認錯，但你的不誠實與報復心已經讓同學對你留下壞印象，失去了和睦關係。",
+        "options": [{ "text": "重頭來過", "nextField": "1-1" }]
+    },
+    "LOSE-沒愛心": {
+        "text": "❌ 你失去了同理心，跟著嘲笑同學，沒能活出基督徒彼此相愛的生命。",
+        "options": [{ "text": "重頭來過", "nextField": "1-1" }]
+    }
 };
 
-let storyData = JSON.parse(JSON.stringify(defaultData));
-document.getElementById('json-input').value = JSON.stringify(storyData, null, 4);
+let storyData;
 
-// 控制編輯器隱藏與顯示的函式
-function toggleEditor() {
-    const editArea = document.getElementById('edit-area');
-    const btn = document.querySelector('.toggle-edit-btn');
-    
-    if (editArea.style.display === 'none' || editArea.style.display === '') {
-        editArea.style.display = 'flex';
-        btn.innerText = "🔒 隱藏後台編輯";
+// 頁面載入時，檢查是否有暫存的資料
+window.onload = function() {
+    const savedData = localStorage.getItem(STORAGE_KEY);
+    if (savedData) {
+        try {
+            storyData = JSON.parse(savedData);
+            console.log("已成功載入本機暫存劇情。");
+        } catch (e) {
+            console.error("暫存資料格式錯誤，載入預設劇情。", e);
+            storyData = JSON.parse(JSON.stringify(defaultData));
+        }
     } else {
-        editArea.style.display = 'none';
-        btn.innerText = "🛠️ 開啟後台編輯";
+        storyData = JSON.parse(JSON.stringify(defaultData));
     }
-}
+    
+    // 將資料填入編輯器的文字框中
+    document.getElementById('json-input').value = JSON.stringify(storyData, null, 4);
+    
+    // 網頁開啟時自動啟動第一關
+    renderScene("1-1");
+};
 
-// 渲染畫面
+// 渲染當前遊戲情境的函式
 function renderScene(sceneId) {
     const scene = storyData[sceneId];
     if (!scene) {
-        document.getElementById('story').innerText = "錯誤：找不到情境代碼 「" + sceneId + "」";
+        document.getElementById('story').innerText = "錯誤：找不到情境代碼 「" + sceneId + "」，請檢查右側後台設定！";
         document.getElementById('options').innerHTML = `<button class="option-btn" onclick="renderScene('1-1')">重回起點 (1-1)</button>`;
         return;
     }
 
-    document.getElementById('current-id').innerText = "當前進度：關卡 " + sceneId;
+    document.getElementById('current-id').innerText = "當前情境編號：" + sceneId;
     document.getElementById('story').innerText = scene.text;
     
     let optionsHtml = "";
@@ -220,20 +250,32 @@ function renderScene(sceneId) {
     document.getElementById('options').innerHTML = optionsHtml;
 }
 
-// 更新劇本資料
+// 更新編輯器劇情並暫存到本機的函式
 function updateStoryData() {
     try {
         const rawJson = document.getElementById('json-input').value;
-        storyData = JSON.parse(rawJson);
-        alert("🎉 劇本更新成功！遊戲將重頭開始測試。");
+        storyData = JSON.parse(rawJson); // 測試解析是否成功
+        
+        // 儲存到 LocalStorage
+        localStorage.setItem(STORAGE_KEY, rawJson);
+        
+        alert("🎉 劇情更新並暫存成功！重新整理網頁也不會遺失修改內容。遊戲將從起點重新開始。");
         renderScene("1-1");
     } catch (e) {
-        alert("❌ 格式有誤，請檢查標點符號！\n" + e.message);
+        alert("❌ JSON 格式有錯誤，請檢查標點符號（逗號或括號）！錯誤訊息：\n" + e.message);
     }
 }
 
-// 初始化
-renderScene("1-1");
+// 清除暫存並恢復預設的函式
+function resetToDefault() {
+    if (confirm("⚠️ 確定要清除所有暫存的修改，恢復成最初始的劇情嗎？這個動作無法復原！")) {
+        localStorage.removeItem(STORAGE_KEY);
+        storyData = JSON.parse(JSON.stringify(defaultData));
+        document.getElementById('json-input').value = JSON.stringify(storyData, null, 4);
+        renderScene("1-1");
+        alert("🗑️ 暫存已清除，劇情已恢復預設！");
+    }
+}
 </script>
 </body>
 </html>
